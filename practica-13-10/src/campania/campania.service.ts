@@ -1,26 +1,50 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateCampaniaDto } from './dto/create-campania.dto';
 import { UpdateCampaniaDto } from './dto/update-campania.dto';
+import { Campania } from './entities/campania.entity';
 
 @Injectable()
 export class CampaniaService {
-  create(createCampaniaDto: CreateCampaniaDto) {
-    return 'This action adds a new campania';
+  constructor(
+    @InjectRepository(Campania)
+    private readonly campaniaRepository: Repository<Campania>,
+  ) {}
+
+  async create(createCampaniaDto: CreateCampaniaDto) {
+    const campania = this.campaniaRepository.create(createCampaniaDto);
+    return await this.campaniaRepository.save(campania);
   }
 
-  findAll() {
-    return `This action returns all campania`;
+  async findAll() {
+    return await this.campaniaRepository.find({
+      relations: ['tipo_campania'],
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} campania`;
+  async findOne(id: string) {
+    const campania = await this.campaniaRepository.findOne({
+      where: { id_campania: id },
+      relations: ['tipo_campania'],
+    });
+    if (!campania) {
+      throw new NotFoundException(`Campaña con id ${id} no encontrada`);
+    }
+    return campania;
   }
 
-  update(id: number, updateCampaniaDto: UpdateCampaniaDto) {
-    return `This action updates a #${id} campania`;
+  async update(id: string, updateCampaniaDto: UpdateCampaniaDto) {
+    await this.findOne(id);
+    await this.campaniaRepository.update(
+      { id_campania: id },
+      updateCampaniaDto,
+    );
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} campania`;
+  async remove(id: string) {
+    await this.findOne(id);
+    return await this.campaniaRepository.delete({ id_campania: id });
   }
 }
