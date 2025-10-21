@@ -1,0 +1,36 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Usuario {
+  """ID único del usuario (UUID)"""
+  id_usuario: ID!
+
+  """Nombre completo del usuario"""
+  nombre: String!
+
+  """Email único del usuario"""
+  email: String!
+
+  """Contraseña del usuario"""
+  contrasenia: String!
+
+  """Teléfono de contacto"""
+  telefono: String!
+
+  """Dirección del usuario"""
+  direccion: String!
+
+  """Fecha de registro del usuario"""
+  fecha_registro: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  usuarios: [Usuario!]!
+  usuario(id: Int!): Usuario!
+}

@@ -1,26 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUsuarioInput } from './dto/create-usuario.input';
-import { UpdateUsuarioInput } from './dto/update-usuario.input';
+import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class UsuariosService {
-  create(createUsuarioInput: CreateUsuarioInput) {
-    return 'This action adds a new usuario';
+  constructor(private httpService: HttpService) {}
+
+  async findAll() {
+    const response = await firstValueFrom(
+      this.httpService.get('/usuario')
+    );
+    return response.data;
   }
 
-  findAll() {
-    return `This action returns all usuarios`;
+  async findOne(id: number) {
+    const response = await firstValueFrom(
+      this.httpService.get(`/usuario/${id}`)
+    );
+    return response.data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
-  }
-
-  update(id: number, updateUsuarioInput: UpdateUsuarioInput) {
-    return `This action updates a #${id} usuario`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
-  }
 }
