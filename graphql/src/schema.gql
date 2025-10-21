@@ -73,6 +73,29 @@ type Refugio {
   descripcion: String!
 }
 
+type Publicacion {
+  """ID único de la publicación (UUID)"""
+  id_publicacion: ID!
+
+  """Título de la publicación"""
+  titulo: String!
+
+  """Descripción detallada de la publicación"""
+  descripcion: String!
+
+  """Fecha de subida de la publicación"""
+  fecha_subida: DateTime!
+
+  """Estado de la publicación"""
+  estado: String!
+
+  """ID del usuario que creó la publicación"""
+  id_usuario: ID
+
+  """ID del animal en la publicación"""
+  id_animal: ID
+}
+
 type Query {
   usuarios: [Usuario!]!
   usuario(id: Int!): Usuario!
@@ -84,4 +107,10 @@ type Query {
 
   """Obtener un refugio por ID"""
   refugio(id: String!): Refugio!
+
+  """Obtener todas las publicaciones"""
+  publicaciones: [Publicacion!]!
+
+  """Obtener una publicación por ID"""
+  publicacion(id: String!): Publicacion!
 }

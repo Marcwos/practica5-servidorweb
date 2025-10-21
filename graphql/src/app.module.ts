@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { AnimalesModule } from './animales/animales.module';
 import { RefugioModule } from './refugio/refugio.module';
+import { PublicacionModule } from './publicacion/publicacion.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { RefugioModule } from './refugio/refugio.module';
     }),
     UsuariosModule,
    AnimalesModule,
-   RefugioModule],
+   RefugioModule,
+   PublicacionModule],
   controllers: [AppController],
   providers: [AppService],
 })
