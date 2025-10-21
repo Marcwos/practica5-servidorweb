@@ -17,6 +17,6 @@ export class AnimalesService {
  async findOne(id: string) {
     const respuesta = await firstValueFrom(
       this.httpService.get(`/animal/${id}`));
-
+  return respuesta.data;
   }
 }
