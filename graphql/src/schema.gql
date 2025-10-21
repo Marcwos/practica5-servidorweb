@@ -30,7 +30,58 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Animal {
+  """ID unico de animales"""
+  id_animal: ID!
+
+  """Nombre del animal"""
+  nombre: String!
+
+  """ID de la especie a la que pertenece"""
+  id_especie: ID!
+
+  """Edad"""
+  edad: String!
+
+  """Estado del animal"""
+  estado: String!
+
+  """Descripcion del animal"""
+  descripcion: String!
+
+  """Fotos del animal"""
+  fotos: [String!]!
+
+  """Estado de adopcion del animal"""
+  estado_adopcion: String!
+
+  """ID del refugio acogedor"""
+  id_refugio: ID!
+}
+
+type Refugio {
+  """ID del refugio (UUID)"""
+  id_refugio: ID!
+
+  """Nombre del refugio"""
+  nombre: String!
+
+  """Teléfono del refugio"""
+  telefono: String!
+
+  """Descripción del refugio"""
+  descripcion: String!
+}
+
 type Query {
   usuarios: [Usuario!]!
   usuario(id: Int!): Usuario!
+  animales: [Animal!]!
+  animal(id: String!): Animal!
+
+  """Obtener todos los refugios"""
+  refugios: [Refugio!]!
+
+  """Obtener un refugio por ID"""
+  refugio(id: String!): Refugio!
 }
