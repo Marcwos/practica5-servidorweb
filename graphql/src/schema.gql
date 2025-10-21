@@ -96,6 +96,23 @@ type Publicacion {
   id_animal: ID
 }
 
+type Adopcion {
+  """ID único de la adopción (UUID)"""
+  id_adopcion: ID!
+
+  """Fecha de la adopción"""
+  fecha_adopcion: DateTime!
+
+  """Estado de la adopción"""
+  estado: String!
+
+  """ID de la publicación relacionada"""
+  id_publicacion: ID
+
+  """ID del usuario adoptante"""
+  id_usuario: ID
+}
+
 type Query {
   usuarios: [Usuario!]!
   usuario(id: Int!): Usuario!
@@ -113,4 +130,10 @@ type Query {
 
   """Obtener una publicación por ID"""
   publicacion(id: String!): Publicacion!
+
+  """Obtener todas las adopciones"""
+  adopciones: [Adopcion!]!
+
+  """Obtener una adopción por ID"""
+  adopcion(id: String!): Adopcion!
 }

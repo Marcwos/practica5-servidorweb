@@ -9,6 +9,7 @@ import { AnimalesModule } from './animales/animales.module';
 import { RefugioModule } from './refugio/refugio.module';
 import { PublicacionModule } from './publicacion/publicacion.module';
 import { CampaniaModule } from './campania/campania.module';
+import { AdopcionModule } from './adopcion/adopcion.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { CampaniaModule } from './campania/campania.module';
    AnimalesModule,
    RefugioModule,
    PublicacionModule,
-  AnimalesModule],
+  AnimalesModule,
+  AdopcionModule],
   controllers: [AppController],
   providers: [AppService],
 })
