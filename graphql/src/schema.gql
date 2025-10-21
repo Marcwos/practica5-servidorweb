@@ -59,40 +59,9 @@ type Animal {
   id_refugio: ID!
 }
 
-type Campania {
-  """ID de la campaña"""
-  id_campania: ID!
-
-  """ID de tipo campaña"""
-  id_tipo_campia: ID!
-
-  """Titulo de la campaña"""
-  titulo: String!
-
-  """Descripcion de la campaña"""
-  descripcion: String!
-
-  """Fecha de inicio de la campaña"""
-  fecha_inicio: DateTime!
-
-  """Fecha de fin de la campaña"""
-  fecha_fin: DateTime!
-
-  """Lugar donde se realiza la campaña"""
-  lugar: String!
-
-  """Organizador de la campaña"""
-  organizador: String!
-
-  """Estado actual de la campaña"""
-  estado: String!
-}
-
 type Query {
   usuarios: [Usuario!]!
   usuario(id: Int!): Usuario!
   animales: [Animal!]!
   animal(id: String!): Animal!
-  campanias: [Campania!]!
-  campania(id: String!): Campania!
 }
