@@ -26,7 +26,7 @@ export class AnalyticsService {
     return resp.data;
   }
 
-  async animalesMasAdoptados(mes: number, anio: number, limite = 10) {
+  async especiesMasAdoptados(mes: number, anio: number, limite = 10) {
     const adopciones = await this.obtenerAdopciones();
     const publicaciones = await this.obtenerPublicaciones();
     const periodo = adopciones.filter((a) => {
