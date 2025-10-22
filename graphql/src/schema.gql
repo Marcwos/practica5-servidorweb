@@ -59,6 +59,14 @@ type Animal {
   id_refugio: ID!
 }
 
+type Especie {
+  """ID unico de la especie"""
+  id_especie: ID!
+
+  """Nombre de la especie"""
+  nombre: String!
+}
+
 type Refugio {
   """ID del refugio (UUID)"""
   id_refugio: ID!
@@ -94,6 +102,37 @@ type Publicacion {
 
   """ID del animal en la publicación"""
   id_animal: ID
+  animal: Animal!
+  especie: EspecieType!
+}
+
+type Campania {
+  """ID de la campaña"""
+  id_campania: ID!
+
+  """ID de tipo campaña"""
+  id_tipo_campia: ID!
+
+  """Titulo de la campaña"""
+  titulo: String!
+
+  """Descripcion de la campaña"""
+  descripcion: String!
+
+  """Fecha de inicio de la campaña"""
+  fecha_inicio: DateTime!
+
+  """Fecha de fin de la campaña"""
+  fecha_fin: DateTime!
+
+  """Lugar donde se realiza la campaña"""
+  lugar: String!
+
+  """Organizador de la campaña"""
+  organizador: String!
+
+  """Estado actual de la campaña"""
+  estado: String!
 }
 
 type Adopcion {
@@ -113,11 +152,64 @@ type Adopcion {
   id_usuario: ID
 }
 
+type Voluntario {
+  """ID unico del voluntario"""
+  id_voluntario: ID!
+
+  """Nombre completo del voluntario"""
+  nombre: String!
+
+  """Email de contacto"""
+  email: String!
+}
+
+type AnimalesMasAdoptadosType {
+  """ID del animal"""
+  animalId: ID!
+
+  """Nombre del animal"""
+  nombre: String!
+
+  """Veces que fue adoptado en el periodo"""
+  vecesAdoptado: Int!
+
+  """Número de publicaciones relacionadas"""
+  publicacionesRelacionadas: Int!
+
+  """Porcentaje sobre el total de adopciones"""
+  porcentajeSobreTotal: Float!
+}
+
+type EstadisticasAdopcionesMensualesType {
+  """Total de adopciones en el periodo"""
+  totalAdopciones: Int!
+
+  """Número de adopciones"""
+  numeroAdopciones: Int!
+
+  """Promedio de adopciones por día"""
+  promedioAdopcionesDiarias: Float!
+
+  """Variación porcentual respecto al periodo anterior"""
+  variacionPorcentual: Float!
+}
+
+type EspecieType {
+  id_especie: ID!
+  nombre: String!
+}
+
 type Query {
   usuarios: [Usuario!]!
   usuario(id: Int!): Usuario!
   animales: [Animal!]!
   animal(id: String!): Animal!
+
+  """Obtener todas las especies"""
+  especies: [Especie!]!
+
+  """Obtener una especie por ID"""
+  especie(id: String!): Especie!
 
   """Obtener todos los refugios"""
   refugios: [Refugio!]!
@@ -130,10 +222,43 @@ type Query {
 
   """Obtener una publicación por ID"""
   publicacion(id: String!): Publicacion!
+  campanias: [Campania!]!
+  campania(id: String!): Campania!
 
   """Obtener todas las adopciones"""
   adopciones: [Adopcion!]!
 
   """Obtener una adopción por ID"""
   adopcion(id: String!): Adopcion!
+
+  """Obtener todos los voluntarios"""
+  voluntarios: [Voluntario!]!
+
+  """Obtener un voluntario por ID"""
+  voluntario(id: String!): Voluntario!
+
+  """Animales más adoptados en un periodo especificado"""
+  animalesMasAdoptados(filtro: FiltroPeriodoInput!): [AnimalesMasAdoptadosType!]!
+
+  """Devuelve animales filtrados por especie (id_especie)"""
+  animalesPorEspecie(especieId: String!): [Animal!]!
+
+  """Estadísticas de adopciones para el mes y año indicados"""
+  estadisticasAdopcionesMensuales(filtro: FiltroPeriodoInputType!): EstadisticasAdopcionesMensualesType!
+}
+
+input FiltroPeriodoInput {
+  """Mes (1-12)"""
+  mes: Int!
+
+  """Año (YYYY)"""
+  anio: Int!
+
+  """Límite de resultados"""
+  limite: Int
+}
+
+input FiltroPeriodoInputType {
+  mes: Int!
+  anio: Int!
 }

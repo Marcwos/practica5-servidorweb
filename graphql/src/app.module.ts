@@ -6,10 +6,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { AnimalesModule } from './animales/animales.module';
+import { EspecieModule } from './especie/especie.module';
 import { RefugioModule } from './refugio/refugio.module';
 import { PublicacionModule } from './publicacion/publicacion.module';
 import { CampaniaModule } from './campania/campania.module';
 import { AdopcionModule } from './adopcion/adopcion.module';
+import { VoluntarioModule } from './voluntario/voluntario.module';
 import { QuerysAnalyticsModule } from './query.animales/analytics.module';
 
 @Module({
@@ -21,9 +23,12 @@ import { QuerysAnalyticsModule } from './query.animales/analytics.module';
     }),
     UsuariosModule,
     AnimalesModule,
+    EspecieModule,
     RefugioModule,
     PublicacionModule,
+    CampaniaModule,
     AdopcionModule,
+    VoluntarioModule,
     QuerysAnalyticsModule,
   ],
   controllers: [AppController],

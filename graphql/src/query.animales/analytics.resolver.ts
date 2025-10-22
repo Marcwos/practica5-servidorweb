@@ -4,8 +4,10 @@ import { AnimalesMasAdoptadosType } from './dto/animales-mas-adoptados.type';
 import { FiltroPeriodoInput } from './dto/filtro-periodo.input';
 import { EstadisticasAdopcionesMensualesType, FiltroPeriodoInputType } from './dto/estadisticas-adopciones-mensuales.type';
 import { EspecieType } from './dto/especie.type';
+import { Animal } from 'src/animales/entities/animal.entity';
+import { Publicacion } from 'src/publicacion/entities/publicacion.entity';
 
-@Resolver()
+@Resolver(() => Publicacion)
 export class AnalyticsResolver {
   constructor(private readonly analyticsService: AnalyticsService) {}
 
@@ -14,8 +16,8 @@ export class AnalyticsResolver {
     return this.analyticsService.animalesMasAdoptados(filtro.mes, filtro.anio, filtro.limite);
   }
 
-  @Query(() => [Object], { description: 'Devuelve animales filtrados por especie (id_especie)' })
-  async animalesPorEspecie(@Args('especieId', { type: () => Number }) especieId: number) {
+  @Query(() => [Animal], { description: 'Devuelve animales filtrados por especie (id_especie)' })
+  async animalesPorEspecie(@Args('especieId', { type: () => String }) especieId: string) {
     return this.analyticsService.animalesPorEspecie(especieId);
   }
 
@@ -24,8 +26,8 @@ export class AnalyticsResolver {
     return this.analyticsService.estadisticasAdopcionesMensuales(filtro.mes, filtro.anio);
   }
 
-  @ResolveField(() => Object, { name: 'animal' })
-  async resolveAnimal(@Root() publicacion: any) {
+  @ResolveField(() => Animal, { name: 'animal' })
+  async resolveAnimal(@Root() publicacion: Publicacion) {
     if (!publicacion.id_animal) return null;
     const animales = await this.analyticsService.obtenerAnimales();
     return animales.find((a) => a.id_animal === publicacion.id_animal);

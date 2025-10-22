@@ -58,7 +58,7 @@ export class AnalyticsService {
       .slice(0, limite);
   }
 
-  async animalesPorEspecie(especieId: number) {
+  async animalesPorEspecie(especieId: string) {
     const animales = await this.obtenerAnimales();
     return animales.filter((a) => String(a.id_especie) === String(especieId));
   }
