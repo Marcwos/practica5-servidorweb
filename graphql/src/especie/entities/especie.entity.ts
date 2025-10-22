@@ -1,3 +1,4 @@
+// Entidad especie para GraphQl
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
