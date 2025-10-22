@@ -29,7 +29,6 @@ export class AnimalesService {
     return respuesta.data;
   }
 
-  // Helper para extraer edad numérica desde string (ej: "3 años" -> 3, "6 meses" -> 0.5)
   private extractEdadNumerica(edadString: string): number {
     if (!edadString) return 0;
     
@@ -47,7 +46,6 @@ export class AnimalesService {
   }
 
   async buscarAnimalesAvanzado(filtros: FiltrosAnimalesInput): Promise<ResultadoBusquedaAnimalesType> {
-    // Obtener todos los animales del REST API
     const respuesta = await firstValueFrom(
       this.httpService.get('/animal')
     );
@@ -115,7 +113,6 @@ export class AnimalesService {
       return 0;
     });
 
-    // Calcular paginación
     const limite = filtros.limite || 10;
     const pagina = filtros.pagina || 1;
     const totalResultados = animales.length;
