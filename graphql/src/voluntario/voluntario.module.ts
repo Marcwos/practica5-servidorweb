@@ -6,6 +6,7 @@ import { HttpModule } from '@nestjs/axios';
 /**
  * Módulo GraphQL para voluntarios.
  */
+
 @Module({
   imports:[HttpModule.register({
     baseURL: 'http://localhost:3005',
