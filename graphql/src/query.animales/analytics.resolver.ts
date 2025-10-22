@@ -11,16 +11,19 @@ import { Publicacion } from 'src/publicacion/entities/publicacion.entity';
 export class AnalyticsResolver {
   constructor(private readonly analyticsService: AnalyticsService) {}
 
+  "Especies mas adoptadas en un periodo especificado"
   @Query(() => [EspeciesMasAdoptadosType], { description: 'Especies más adoptadas en un periodo especificado' })
   async especiesMasAdoptados(@Args('filtro') filtro: FiltroPeriodoInput): Promise<EspeciesMasAdoptadosType[]> {
     return this.analyticsService.especiesMasAdoptados(filtro.mes, filtro.anio, filtro.limite);
   }
 
+  "Animales por especie (id_especie"
   @Query(() => [Animal], { description: 'Devuelve animales filtrados por especie (id_especie)' })
   async animalesPorEspecie(@Args('especieId', { type: () => String }) especieId: string) {
     return this.analyticsService.animalesPorEspecie(especieId);
   }
 
+  "Estadisticas de adopciones mensuales"
   @Query(() => EstadisticasAdopcionesMensualesType, { description: 'Estadísticas de adopciones para el mes y año indicados' })
   async estadisticasAdopcionesMensuales(@Args('filtro') filtro: FiltroPeriodoInputType) {
     return this.analyticsService.estadisticasAdopcionesMensuales(filtro.mes, filtro.anio);
