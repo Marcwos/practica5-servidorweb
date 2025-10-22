@@ -14,7 +14,7 @@ querys de unión:
 
 --2
 {
-  animalesPorEspecie(especieId: "5a01aedf-d847-44cc-bd2b-489eb2687a20") {
+  animalesPorEspecie(especieId: "1d6f30bb-4819-4842-85ab-1655eba9cad4") {
     nombre
     id_especie
     edad

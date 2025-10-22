@@ -8,4 +8,4 @@ import { DataTransformerService } from '../common/data-transformer.service';
   imports: [HttpModule.register({ baseURL: 'http://localhost:3005', timeout: 5000 })],
   providers: [AnalyticsResolver, AnalyticsService, DataTransformerService],
 })
-export class QuerysAnalyticsModule {}
+export class AnalyticsModule {}

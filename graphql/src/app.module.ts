@@ -12,7 +12,7 @@ import { PublicacionModule } from './publicacion/publicacion.module';
 import { CampaniaModule } from './campania/campania.module';
 import { AdopcionModule } from './adopcion/adopcion.module';
 import { VoluntarioModule } from './voluntario/voluntario.module';
-import { QuerysAnalyticsModule } from './query.animales/analytics.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -29,7 +29,7 @@ import { QuerysAnalyticsModule } from './query.animales/analytics.module';
     CampaniaModule,
     AdopcionModule,
     VoluntarioModule,
-    QuerysAnalyticsModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
