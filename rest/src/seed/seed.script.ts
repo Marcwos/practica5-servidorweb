@@ -3,7 +3,7 @@ import { AppModule } from '../app.module';
 import { SeedService } from './seed.service';
 
 async function bootstrap() {
-  console.log('🚀 Iniciando aplicación para seed...');
+  console.log('Iniciando aplicación para seed...');
   
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'log'],
@@ -13,9 +13,9 @@ async function bootstrap() {
 
   try {
     await seedService.seedDatabase();
-    console.log('🎉 Seed ejecutado correctamente!');
+    console.log(' Seed ejecutado correctamente!');
   } catch (error) {
-    console.error('❌ Error durante el seed:', error);
+    console.error(' Error durante el seed:', error);
     process.exit(1);
   } finally {
     await app.close();

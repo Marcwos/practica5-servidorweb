@@ -42,14 +42,11 @@ export class AnalyticsService {
       return d.getMonth() + 1 === mes && d.getFullYear() === anio;
     });
 
-    // Mapa para agrupar por ESPECIE (no por animal individual)
     const mapaEspecies = new Map();
 
     for (const adopcion of periodo) {
-      // Obtener el animal desde la adopción
       let animalId = adopcion.id_animal;
       
-      // Si no está en adopción, buscar en publicación
       if (!animalId && adopcion.id_publicacion) {
         const publicacion = publicaciones.find(p => p.id_publicacion === adopcion.id_publicacion);
         animalId = publicacion?.id_animal;
@@ -57,15 +54,12 @@ export class AnalyticsService {
       
       if (!animalId) continue;
 
-      // Buscar información del animal
       const animal = animales.find((a) => a.id_animal === animalId);
       if (!animal || !animal.id_especie) continue;
 
-      // Buscar información de la especie
       const especie = especies.find((esp) => esp.id_especie === animal.id_especie);
       if (!especie) continue;
 
-      // Agrupar por ID de especie
       const especieId = animal.id_especie;
       const entry = mapaEspecies.get(especieId) || {
         especieId: especieId,
@@ -81,7 +75,6 @@ export class AnalyticsService {
       mapaEspecies.set(especieId, entry);
     }
 
-    // Calcular publicaciones relacionadas para cada especie
     for (const [especieId, entry] of mapaEspecies.entries()) {
       const animalesDeLaEspecie = animales.filter(a => a.id_especie === especieId);
       const animalesIds = animalesDeLaEspecie.map(a => a.id_animal);
@@ -93,20 +86,19 @@ export class AnalyticsService {
     const total = periodo.length || 1;
     const resultados = Array.from(mapaEspecies.values())
       .map((r) => ({
-        animalId: r.especieId, // Usando especieId como identificador principal
-        nombre: r.especieNombre, // Nombre de la especie
+        animalId: r.especieId, 
+        nombre: r.especieNombre,
         vecesAdoptado: r.vecesAdoptado,
         publicacionesRelacionadas: r.publicacionesRelacionadas,
         porcentajeSobreTotal: (r.vecesAdoptado / total) * 100,
         especieId: r.especieId,
         especieNombre: r.especieNombre,
-        // Información adicional útil
         animalesDistintosAdoptados: r.animalesDistintos.size
       }))
       .sort((a, b) => b.vecesAdoptado - a.vecesAdoptado)
       .slice(0, limite);
 
-    console.log('📊 Especies más adoptadas:', resultados);
+    console.log('Especies más adoptadas:', resultados);
     return resultados;
   }
 
