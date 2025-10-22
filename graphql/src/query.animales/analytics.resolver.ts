@@ -17,7 +17,7 @@ export class AnalyticsResolver {
     return this.analyticsService.especiesMasAdoptados(filtro.mes, filtro.anio, filtro.limite);
   }
 
-  "Animales por especie (id_especie"
+  "Animales por especie (id_especie)"
   @Query(() => [Animal], { description: 'Devuelve animales filtrados por especie (id_especie)' })
   async animalesPorEspecie(@Args('especieId', { type: () => String }) especieId: string) {
     return this.analyticsService.animalesPorEspecie(especieId);
