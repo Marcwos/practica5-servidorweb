@@ -10,6 +10,7 @@ import { RefugioModule } from './refugio/refugio.module';
 import { PublicacionModule } from './publicacion/publicacion.module';
 import { CampaniaModule } from './campania/campania.module';
 import { AdopcionModule } from './adopcion/adopcion.module';
+import { QuerysAnalyticsModule } from './query.animales/analytics.module';
 
 @Module({
   imports: [
@@ -19,11 +20,12 @@ import { AdopcionModule } from './adopcion/adopcion.module';
       playground: true,
     }),
     UsuariosModule,
-   AnimalesModule,
-   RefugioModule,
-   PublicacionModule,
-  AnimalesModule,
-  AdopcionModule],
+    AnimalesModule,
+    RefugioModule,
+    PublicacionModule,
+    AdopcionModule,
+    QuerysAnalyticsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
