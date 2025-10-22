@@ -73,9 +73,7 @@ query 3:
 {
   estadisticasAdopcionesMensuales(filtro: { mes: 6, anio: 2025 }) {
     totalAdopciones
-    numeroAdopciones
     promedioAdopcionesDiarias
-    variacionPorcentual
   }
 }
 
