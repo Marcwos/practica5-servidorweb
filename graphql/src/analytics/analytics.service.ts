@@ -30,6 +30,16 @@ export class AnalyticsService {
     return resp.data;
   }
 
+  async obtenerUsuarios() {
+    const resp = await firstValueFrom(this.httpService.get('/usuario'));
+    return this.dataTransformer.transformUsuarios(resp.data);
+  }
+
+  async obtenerVoluntarios() {
+    const resp = await firstValueFrom(this.httpService.get('/voluntario'));
+    return resp.data;
+  }
+
   async especiesMasAdoptados(mes: number, anio: number, limite = 10) {
     const adopciones = await this.obtenerAdopciones();
     const publicaciones = await this.obtenerPublicaciones();
@@ -135,5 +145,82 @@ export class AnalyticsService {
       promedioAdopcionesDiarias: promedio,
       variacionPorcentual: variacion,
     };
+  }
+
+  async usuariosMasActivos(mes: number, anio: number, limite = 10) {
+    const usuarios = await this.obtenerUsuarios();
+    const adopciones = await this.obtenerAdopciones();
+    const publicaciones = await this.obtenerPublicaciones();
+    const voluntarios = await this.obtenerVoluntarios();
+
+    // Filtrar por periodo si se especifica mes y año
+    const adopcionesPeriodo = mes && anio 
+      ? adopciones.filter((a) => {
+          if (!a.fecha_adopcion) return false;
+          const d = new Date(a.fecha_adopcion);
+          return d.getMonth() + 1 === mes && d.getFullYear() === anio;
+        })
+      : adopciones;
+
+    const publicacionesPeriodo = mes && anio
+      ? publicaciones.filter((p) => {
+          if (!p.fecha_subida) return false;
+          const d = new Date(p.fecha_subida);
+          return d.getMonth() + 1 === mes && d.getFullYear() === anio;
+        })
+      : publicaciones;
+
+    // Mapear actividad por usuario
+    const actividadUsuarios = new Map();
+
+    for (const usuario of usuarios) {
+      const usuarioId = usuario.id_usuario;
+      
+      // Contar adopciones
+      const totalAdopciones = adopcionesPeriodo.filter(
+        (a) => a.id_usuario === usuarioId
+      ).length;
+
+      // Contar publicaciones
+      const totalPublicaciones = publicacionesPeriodo.filter(
+        (p) => p.id_usuario === usuarioId
+      ).length;
+
+      // Contar participaciones como voluntario
+      const totalVoluntariados = voluntarios.filter(
+        (v) => v.id_usuario === usuarioId
+      ).length;
+
+      // Calcular puntuación ponderada
+      // Adopciones: peso 3 (más importante)
+      // Publicaciones: peso 2
+      // Voluntariados: peso 1
+      const puntuacionActividad = 
+        (totalAdopciones * 3) + 
+        (totalPublicaciones * 2) + 
+        (totalVoluntariados * 1);
+
+      // Solo incluir usuarios con actividad
+      if (puntuacionActividad > 0) {
+        actividadUsuarios.set(usuarioId, {
+          usuarioId,
+          nombreUsuario: usuario.nombre,
+          email: usuario.email,
+          totalAdopciones,
+          totalPublicaciones,
+          totalVoluntariados,
+          puntuacionActividad,
+          fechaRegistro: usuario.fecha_registro,
+        });
+      }
+    }
+
+    // Ordenar por puntuación y limitar
+    const resultados = Array.from(actividadUsuarios.values())
+      .sort((a, b) => b.puntuacionActividad - a.puntuacionActividad)
+      .slice(0, limite);
+
+    console.log('Usuarios más activos:', resultados);
+    return resultados;
   }
 }

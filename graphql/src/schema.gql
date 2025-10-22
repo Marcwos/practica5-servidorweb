@@ -209,6 +209,32 @@ type EspecieType {
   nombre: String!
 }
 
+type UsuariosMasActivosType {
+  """ID del usuario"""
+  usuarioId: ID!
+
+  """Nombre completo del usuario"""
+  nombreUsuario: String!
+
+  """Email del usuario"""
+  email: String!
+
+  """Total de adopciones realizadas"""
+  totalAdopciones: Int!
+
+  """Total de publicaciones creadas"""
+  totalPublicaciones: Int!
+
+  """Total de participaciones como voluntario"""
+  totalVoluntariados: Int!
+
+  """Puntuación de actividad (suma ponderada)"""
+  puntuacionActividad: Float!
+
+  """Fecha de registro del usuario"""
+  fechaRegistro: DateTime
+}
+
 type Query {
   usuarios: [Usuario!]!
   usuario(id: Int!): Usuario!
@@ -255,6 +281,11 @@ type Query {
 
   """Estadísticas de adopciones para el mes y año indicados"""
   estadisticasAdopcionesMensuales(filtro: FiltroPeriodoInputType!): EstadisticasAdopcionesMensualesType!
+
+  """
+  Ranking de usuarios más activos según adopciones, publicaciones y voluntariados
+  """
+  usuariosMasActivos(filtro: FiltroPeriodoInput!): [UsuariosMasActivosType!]!
 }
 
 input FiltroPeriodoInput {

@@ -65,7 +65,18 @@ Especie mas adoptada
 }
 
 query 2:
---FALTA Consultas de Análisis de Negocio
+{
+  usuariosMasActivos(filtro: { mes: 6, anio: 2025, limite: 10 }) {
+    usuarioId
+    nombreUsuario
+    email
+    totalAdopciones
+    totalPublicaciones
+    totalVoluntariados
+    puntuacionActividad
+    fechaRegistro  # ← Ya funciona correctamente
+  }
+}
 
 query 3:
 
