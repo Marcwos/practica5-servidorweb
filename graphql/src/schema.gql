@@ -60,6 +60,34 @@ type Animal {
   especie: Especie
 }
 
+type MetadataPaginacion {
+  """Total de resultados encontrados"""
+  totalResultados: Int!
+
+  """Página actual"""
+  paginaActual: Int!
+
+  """Total de páginas"""
+  totalPaginas: Int!
+
+  """Resultados por página"""
+  resultadosPorPagina: Int!
+
+  """Indica si hay una página anterior"""
+  hayPaginaAnterior: Boolean!
+
+  """Indica si hay una página siguiente"""
+  hayPaginaSiguiente: Boolean!
+}
+
+type ResultadoBusquedaAnimalesType {
+  """Lista de animales encontrados"""
+  animales: [Animal!]!
+
+  """Información de paginación"""
+  metadata: MetadataPaginacion!
+}
+
 type Especie {
   """ID unico de la especie"""
   id_especie: ID!
@@ -241,6 +269,11 @@ type Query {
   animales: [Animal!]!
   animal(id: String!): Animal!
 
+  """
+  Búsqueda avanzada de animales con filtros múltiples, ordenamiento y paginación
+  """
+  buscarAnimalesAvanzado(filtros: FiltrosAnimalesInput!): ResultadoBusquedaAnimalesType!
+
   """Obtener todas las especies"""
   especies: [Especie!]!
 
@@ -286,6 +319,38 @@ type Query {
   Ranking de usuarios más activos según adopciones, publicaciones y voluntariados
   """
   usuariosMasActivos(filtro: FiltroPeriodoInput!): [UsuariosMasActivosType!]!
+}
+
+input FiltrosAnimalesInput {
+  """ID de la especie para filtrar"""
+  especieId: String
+
+  """ID del refugio para filtrar"""
+  refugioId: String
+
+  """Estado de adopción (disponible, en_proceso, adoptado)"""
+  estadoAdopcion: String
+
+  """Edad mínima del animal"""
+  edadMin: Int
+
+  """Edad máxima del animal"""
+  edadMax: Int
+
+  """Texto de búsqueda (nombre o descripción)"""
+  busqueda: String
+
+  """Campo por el cual ordenar (nombre, edad, fecha_registro)"""
+  ordenarPor: String = "fecha_registro"
+
+  """Dirección del orden (ASC, DESC)"""
+  orden: String = "DESC"
+
+  """Límite de resultados por página"""
+  limite: Int = 10
+
+  """Número de página"""
+  pagina: Int = 1
 }
 
 input FiltroPeriodoInput {

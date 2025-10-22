@@ -88,4 +88,66 @@ query 3:
   }
 }
 
---faltan 3 Consultas de Análisis de Negocio:
+Integrante 3:
+
+query 1:
+
+-Consultas de Búsqueda y Filtrado Avanzado
+query {
+  buscarAnimalesAvanzado(filtros: {
+    especieId: "1d6f30bb-4819-4842-85ab-1655eba9cad4"
+    estadoAdopcion: "disponible"
+  }) {
+    animales {
+      id_animal
+      nombre
+      edad
+      estado_adopcion
+      especie {
+        id_especie
+        nombre
+      }
+    }
+    metadata {
+      totalResultados
+    }
+  }
+}
+
+query 2:
+
+query {
+  buscarAnimalesAvanzado(filtros: {
+    edadMin: 0
+    edadMax: 3
+    ordenarPor: "edad"
+    orden: "ASC"
+  }) {
+    animales {
+      id_animal
+      nombre
+      edad
+      estado_adopcion
+    }
+    metadata {
+      totalResultados
+    }
+  }
+}
+
+query 3:
+
+query {
+  buscarAnimalesAvanzado(filtros: {
+    busqueda: "tranquilo"
+  }) {
+    animales {
+      id_animal
+      nombre
+      descripcion
+    }
+    metadata {
+      totalResultados
+    }
+  }
+}
