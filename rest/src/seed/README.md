@@ -1,70 +1,75 @@
-# Seed System - Base de Datos de Prueba
-
-Este sistema de seed genera datos aleatorios pero realistas para probar las funcionalidades del sistema de adopción de animales.
-
-## 📊 Datos que se generan
-
-- **6 especies** básicas (Perro, Gato, Conejo, Hamster, Ave, Reptil)
-- **4 refugios** con información completa
-- **10 usuarios** con datos realistas
-- **50 animales** distribuidos entre especies y refugios
-- **~40 publicaciones** (80% de los animales)
-- **80 adopciones** distribuidas en los últimos 12 meses
-
-## 🎯 Optimizado para Analytics
-
-El seed está diseñado específicamente para probar las queries de analytics:
-
-- **Adopciones concentradas**: Más adopciones en meses específicos (Abril, Junio, Septiembre, Noviembre)
-- **Distribución temporal**: Adopciones distribuidas en los últimos 12 meses
-- **Relaciones completas**: Todas las entidades están interconectadas correctamente
-- **Estados variados**: Diferentes estados de adopción y publicaciones para casos de prueba diversos
-
-## 🚀 Cómo usar
-
-### Opción 1: Desarrollo (TypeScript directo)
-```bash
-cd rest
-npm run seed
-```
-
-### Opción 2: Producción (compilado)
-```bash
-cd rest
-npm run seed:run
-```
-
-## 📈 Queries de prueba recomendadas
-
-Una vez ejecutado el seed, puedes probar estas queries en GraphQL:
-
-### 1. Animales más adoptados (Mayo 2025)
-```graphql
+querys jijijijiji
+querys de unión:
+--1
 {
-  animalesMasAdoptados(filtro: { mes: 5, anio: 2025, limite: 5 }) {
-    animalId
-    nombre
-    vecesAdoptado
-    publicacionesRelacionadas
-    porcentajeSobreTotal
-  }
-}
-```
-
-### 2. Animales por especie (Perros)
-```graphql
-{
-  animalesPorEspecie(especieId: "ID_PERRO") {
+  animales {
     id_animal
     nombre
-    edad
-    estado_adopcion
+    especie {
+      id_especie
+      nombre
+    }
   }
 }
-```
 
-### 3. Estadísticas mensuales (Junio 2025)
-```graphql
+--2
+{
+  animalesPorEspecie(especieId: "5a01aedf-d847-44cc-bd2b-489eb2687a20") {
+    nombre
+    id_especie
+    edad
+    estado
+    descripcion
+  }
+}
+
+--3
+{
+  usuarios {
+    id_usuario
+    nombre
+    email
+    telefono
+    fecha_registro
+  }
+  publicaciones {
+    id_publicacion
+    titulo
+    descripcion
+    fecha_subida
+    estado
+    id_usuario
+    animal {
+      id_animal
+      nombre
+      edad
+      estado_adopcion
+      especie {
+        id_especie
+        nombre
+      }
+    }
+  }
+}
+
+INTEGRANTE 2:
+query 1:
+Especie mas adoptada
+{
+  especiesMasAdoptados(filtro: { mes: 5, anio: 2025, limite: 5 }) {
+    nombre
+    vecesAdoptado
+    porcentajeSobreTotal
+    especieNombre
+  }
+}
+
+query 2:
+--FALTA Consultas de Análisis de Negocio
+
+query 3:
+
+#Estadisticas de adopciones Mensuales
 {
   estadisticasAdopcionesMensuales(filtro: { mes: 6, anio: 2025 }) {
     totalAdopciones
@@ -73,29 +78,5 @@ Una vez ejecutado el seed, puedes probar estas queries en GraphQL:
     variacionPorcentual
   }
 }
-```
 
-## 🔧 Personalización
-
-Para modificar los datos generados, edita `src/seed/seed.service.ts`:
-
-- Cambia nombres, cantidades o distribuciones
-- Ajusta fechas de adopciones para diferentes periods de prueba
-- Modifica estados y descripciones según tus necesidades
-
-## ⚠️ Importante
-
-- **El seed borra todos los datos existentes** antes de generar nuevos
-- Los IDs son UUIDs generados automáticamente por TypeORM
-- Las fechas de adopción están optimizadas para testing de analytics
-- Los datos son ficticios pero realistas
-
-## 🐛 Solución de problemas
-
-Si encuentras errores:
-
-1. Verifica que la base de datos SQLite esté accesible
-2. Asegúrate de que todas las entidades estén sincronizadas
-3. Revisa que no haya constraints de base de datos en conflicto
-
-¡Disfruta probando tus queries con datos realistas! 🎉
+--faltan 3 Consultas de Análisis de Negocio:

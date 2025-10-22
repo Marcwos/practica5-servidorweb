@@ -11,8 +11,8 @@ export class Publicacion {
   @Field(() => String, { description: 'Descripción detallada de la publicación' })
   descripcion: string;
 
-  @Field(() => Date, { description: 'Fecha de subida de la publicación' })
-  fecha_subida: Date;
+  @Field(() => Date, { description: 'Fecha de subida de la publicación', nullable: true })
+  fecha_subida?: Date;
 
   @Field(() => String, { description: 'Estado de la publicación' })
   estado: string;

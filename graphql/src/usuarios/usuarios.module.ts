@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { UsuariosService } from './usuarios.service';
 import { UsuariosResolver } from './usuarios.resolver';
+import { DataTransformerService } from '../common/data-transformer.service';
 
 @Module({
   imports: [
@@ -10,6 +11,6 @@ import { UsuariosResolver } from './usuarios.resolver';
       timeout: 5000,
     }),
   ],
-  providers: [UsuariosResolver, UsuariosService],
+  providers: [UsuariosResolver, UsuariosService, DataTransformerService],
 })
 export class UsuariosModule {}

@@ -13,16 +13,16 @@ type Usuario {
   email: String!
 
   """Contraseña del usuario"""
-  contrasenia: String!
+  contrasenia: String
 
   """Teléfono de contacto"""
-  telefono: String!
+  telefono: String
 
   """Dirección del usuario"""
-  direccion: String!
+  direccion: String
 
   """Fecha de registro del usuario"""
-  fecha_registro: DateTime!
+  fecha_registro: DateTime
 }
 
 """
@@ -57,6 +57,7 @@ type Animal {
 
   """ID del refugio acogedor"""
   id_refugio: ID!
+  especie: Especie
 }
 
 type Especie {
@@ -75,10 +76,10 @@ type Refugio {
   nombre: String!
 
   """Teléfono del refugio"""
-  telefono: String!
+  telefono: String
 
   """Descripción del refugio"""
-  descripcion: String!
+  descripcion: String
 }
 
 type Publicacion {
@@ -92,7 +93,7 @@ type Publicacion {
   descripcion: String!
 
   """Fecha de subida de la publicación"""
-  fecha_subida: DateTime!
+  fecha_subida: DateTime
 
   """Estado de la publicación"""
   estado: String!
@@ -164,20 +165,29 @@ type Voluntario {
 }
 
 type EspeciesMasAdoptadosType {
-  """ID del animal"""
+  """ID de la especie (se usa como identificador principal)"""
   animalId: ID!
 
-  """Nombre del animal"""
+  """Nombre de la especie"""
   nombre: String!
 
-  """Veces que fue adoptado en el periodo"""
+  """Total de adopciones de esta especie en el periodo"""
   vecesAdoptado: Int!
 
-  """Número de publicaciones relacionadas"""
+  """Número de publicaciones relacionadas con esta especie"""
   publicacionesRelacionadas: Int!
 
   """Porcentaje sobre el total de adopciones"""
   porcentajeSobreTotal: Float!
+
+  """ID de la especie"""
+  especieId: ID
+
+  """Nombre de la especie"""
+  especieNombre: String
+
+  """Número de animales distintos adoptados de esta especie"""
+  animalesDistintosAdoptados: Int
 }
 
 type EstadisticasAdopcionesMensualesType {

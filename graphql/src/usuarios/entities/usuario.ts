@@ -11,16 +11,16 @@ export class Usuario {
   @Field(() => String, { description: 'Email único del usuario' })
   email: string;
 
-  @Field(() => String, { description: 'Contraseña del usuario' })
-  contrasenia: string;
+  @Field(() => String, { description: 'Contraseña del usuario', nullable: true })
+  contrasenia?: string;
 
-  @Field(() => String, { description: 'Teléfono de contacto' })
-  telefono: string;
+  @Field(() => String, { description: 'Teléfono de contacto', nullable: true })
+  telefono?: string;
 
-  @Field(() => String, { description: 'Dirección del usuario' })
-  direccion: string;
+  @Field(() => String, { description: 'Dirección del usuario', nullable: true })
+  direccion?: string;
 
-  @Field(() => Date, { description: 'Fecha de registro del usuario' })
-  fecha_registro: Date;
+  @Field(() => Date, { description: 'Fecha de registro del usuario', nullable: true })
+  fecha_registro?: Date;
 }
   

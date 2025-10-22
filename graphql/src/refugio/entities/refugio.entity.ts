@@ -8,9 +8,9 @@ export class Refugio {
   @Field(() => String, { description: 'Nombre del refugio' })
   nombre: string;
 
-  @Field(() => String, { description: 'Teléfono del refugio' })
-  telefono: string;
+  @Field(() => String, { description: 'Teléfono del refugio', nullable: true })
+  telefono?: string;
 
-  @Field(() => String, { description: 'Descripción del refugio' })
-  descripcion: string;
+  @Field(() => String, { description: 'Descripción del refugio', nullable: true })
+  descripcion?: string;
 }

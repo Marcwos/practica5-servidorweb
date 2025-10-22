@@ -19,4 +19,11 @@ export class AnimalesService {
       this.httpService.get(`/animal/${id}`));
   return respuesta.data;
   }
+
+  async findEspecie(especieId: string) {
+    const respuesta = await firstValueFrom(
+      this.httpService.get(`/especie/${especieId}`)
+    );
+    return respuesta.data;
+  }
 }

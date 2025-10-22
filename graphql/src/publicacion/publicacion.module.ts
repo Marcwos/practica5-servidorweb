@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { PublicacionService } from './publicacion.service';
 import { PublicacionResolver } from './publicacion.resolver';
+import { DataTransformerService } from '../common/data-transformer.service';
 
 @Module({
   imports: [
@@ -10,6 +11,6 @@ import { PublicacionResolver } from './publicacion.resolver';
       timeout: 5000,
     }),
   ],
-  providers: [PublicacionResolver, PublicacionService],
+  providers: [PublicacionResolver, PublicacionService, DataTransformerService],
 })
 export class PublicacionModule {}
