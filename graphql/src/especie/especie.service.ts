@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs';
  * backend REST. Usa HttpService para realizar peticiones HTTP y
  * retorna los datos tal cual los devuelve la API REST.
  */
+
 @Injectable()
 export class EspecieService {
   constructor(private readonly httpService: HttpService) {}
@@ -26,6 +27,7 @@ export class EspecieService {
    * @param id ID de la especie a buscar.
    * @returns Promise con la especie o valor vacío si no existe.
    */
+  
   async findOne(id: string) {
     const respuesta = await firstValueFrom(this.httpService.get(`/especie/${id}`));
     return respuesta.data;
