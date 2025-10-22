@@ -163,7 +163,7 @@ type Voluntario {
   email: String!
 }
 
-type AnimalesMasAdoptadosType {
+type EspeciesMasAdoptadosType {
   """ID del animal"""
   animalId: ID!
 
@@ -237,8 +237,8 @@ type Query {
   """Obtener un voluntario por ID"""
   voluntario(id: String!): Voluntario!
 
-  """Animales más adoptados en un periodo especificado"""
-  animalesMasAdoptados(filtro: FiltroPeriodoInput!): [AnimalesMasAdoptadosType!]!
+  """Especies más adoptadas en un periodo especificado"""
+  especiesMasAdoptados(filtro: FiltroPeriodoInput!): [EspeciesMasAdoptadosType!]!
 
   """Devuelve animales filtrados por especie (id_especie)"""
   animalesPorEspecie(especieId: String!): [Animal!]!
