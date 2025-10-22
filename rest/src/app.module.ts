@@ -10,6 +10,7 @@ import { PublicacionModule } from './publicacion/publicacion.module';
 import { AdopcionModule } from './adopcion/adopcion.module';
 import { TipoCampaniaModule } from './tipo-campania/tipo-campania.module';
 import { VoluntarioModule } from './voluntario/voluntario.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { VoluntarioModule } from './voluntario/voluntario.module';
     AdopcionModule,
     TipoCampaniaModule,
     VoluntarioModule,
+    SeedModule,
   ],
   controllers: [],
   providers: [],
